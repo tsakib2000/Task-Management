@@ -2,15 +2,25 @@ import { useContext } from 'react';
 import logo from '../assets/icons8-to-do-list-100.png'
 import { AuthContext } from '../Provider/AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import useAxiosPublic from '../Hook/useAxiosPublic';
 
 const Login = () => {
   const {googleSignIn,setUser}=useContext(AuthContext);
+  const axiosPublic=useAxiosPublic()
   const navigate=useNavigate();
   const handleGoogleLogIn=()=>{
 
     googleSignIn()
-    .then(data=>{
+    .then(async data=>{
       setUser(data.user);
+      setUser(data.user);
+      const userInfo = {
+        name: data.user.displayName,
+        email: data.user.email,
+        photoURL: data.user.photoURL,
+      
+      };
+      await axiosPublic.post("/users", userInfo);
       navigate('/')
     })
    
@@ -19,12 +29,12 @@ const Login = () => {
     return (
 <div className="flex h-screen items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96 text-center">
-        {/* Logo & Title */}
-        <h1 className="text-3xl font-bold text-red-600 mb-4">Todoist</h1>
+     
+        <h1 className="text-3xl font-bold text-blue-600 mb-4">Todoist</h1>
         <p className="text-gray-600 mb-6">Manage your tasks efficiently</p>
 
         {/* Google Login Button */}
-        <button onClick={handleGoogleLogIn} className="flex items-center justify-center w-full py-3 border border-gray-300 rounded-lg hover:bg-gray-200 transition">
+        <button onClick={handleGoogleLogIn} className="cursor-pointer flex items-center justify-center w-full py-3 border border-gray-300 rounded-lg hover:bg-gray-200 transition">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 48 48"
