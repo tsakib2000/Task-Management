@@ -5,6 +5,7 @@ import Login from "../Pages/Login";
 import AddTask from "../Pages/AddTask";
 
 import Tasks from "../Pages/Tasks";
+import UpdatePage from "../Pages/updatePage";
 
 const router=createBrowserRouter([
     {
@@ -18,6 +19,12 @@ const router=createBrowserRouter([
             {
                 path:'Tasks',
                 element:<PrivateRoute><Tasks/></PrivateRoute>
+            },
+            {
+                
+                    path:'task/:id',
+                    element:<UpdatePage/>
+                
             }
      
         ]

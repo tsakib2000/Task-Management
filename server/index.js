@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const express = require('express');
 const cors = require('cors');
 const app = express()
@@ -38,12 +38,28 @@ async function run() {
         const result = await userCollection.insertOne(user);
         res.send(result);
       });
-
+//post task
    app.post('/task',async(req,res)=>{
     const task = req.body;
    const result = await tasksCollection.insertOne(task);
    res.send(result) 
    })
+//get task by status
+app.get('/task',async(req,res)=>{
+  
+  const email = req.query.email;
+  const query={email};
+  const result=await tasksCollection.find(query).toArray();
+  res.send(result)
+})
+
+//get single task 
+app.get('/singleTask/:id',async(req,res)=>{
+  const id=req.params.id;
+  const query={_id: new ObjectId(id)}
+  const result= await tasksCollection.findOne(query);
+  res.send(result);
+})
   } finally {
 
   }

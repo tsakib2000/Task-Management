@@ -15,11 +15,13 @@ const title=form.title.value;
 const description=form.description.value;
 const status='todo';
 const email=user.email
-const task={title,description,status,email}
+const creationTime=new Date()
+const task={title,description,status,email,creationTime}
 
-//     const data= await axiosPublic.post('/task',task)
-// form.reset()
-    console.log(task);
+   await axiosPublic.post('/task',task)
+   
+form.reset()
+
 }
     return (
         <div className="">
