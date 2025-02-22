@@ -15,8 +15,7 @@ const Tasks = () => {
     const axiosPublic=useAxiosPublic()
     useEffect(()=>{
         fetchDataTodo();
-        // fetchDataInProgress();
-        // fetchDataDone();
+        
         
 
     },[])
@@ -30,6 +29,8 @@ console.log(id);
 }
 
 const todo =tasks.filter((task) => task.status === "todo");
+const inProgress =tasks.filter((task) => task.status === "inProgress");
+const done =tasks.filter((task) => task.status === "done");
     return (<>
         <div className="min-h-screen  p-8">
         <h1 className="text-3xl font-bold text-center mb-8">Manage Your Task</h1>
@@ -46,12 +47,18 @@ const todo =tasks.filter((task) => task.status === "todo");
           <div className="bg-gray-100 text-center p-6 rounded-lg shadow-lg">
             <h2 className="text-xl font-semibold mb-4">In Progress</h2>
 
+     {
+      inProgress?.map(task=><TaskCard key={task._id} task={task}  onDelete={onDelete}/>)
+    }
+
           </div>
   
           {/* Done Card */}
           <div className="bg-gray-100 text-center p-6 rounded-lg shadow-lg">
             <h2 className="text-xl font-semibold mb-4">Done</h2>
-      
+            {
+        done?.map(task=><TaskCard key={task._id} task={task}  onDelete={onDelete}/>)
+      }
           </div>
         </div>
       </div>
