@@ -60,6 +60,26 @@ app.get('/singleTask/:id',async(req,res)=>{
   const result= await tasksCollection.findOne(query);
   res.send(result);
 })
+
+//update task
+app.patch('/task/:id',async(req,res)=>{
+  const id=req.params.id;
+  const query={_id:new ObjectId(id)}
+  const task = req.body;
+  const update = {
+    $set: task,
+  };
+  const result = await tasksCollection.updateOne(query,update);
+  res.send(result);
+})
+
+//delete task
+app.delete('/task/:id',async(req,res)=>{
+  const id=req.params.id;
+  const query={_id:new ObjectId(id)}
+  const result= await tasksCollection.deleteOne(query);
+  res.send(result)
+})
   } finally {
 
   }

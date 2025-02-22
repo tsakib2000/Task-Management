@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
 
 import { Link } from "react-router-dom";
+import moment from "moment";
 
-
-const TaskCard = ({task}) => {
+const TaskCard = ({task,onDelete}) => {
 
     return (
-        <div className="bg-white p-4 rounded-lg shadow-md mb-4">
-        <h3 className="text-lg font-semibold">{task.title}</h3>
-        <p className="text-gray-600">{task.description}</p>
+        <div className="bg-white p-4 rounded-lg shadow-md mb-4 space-y-4">
+        <h3 className="text-lg font-bold">{task.title}</h3>
+        <p className="text-gray-600 font-semibold">{task.description}</p>
+        <p className="text-gray-600 text-sm">{moment(task?.creationTime).format("dddd, MMMM Do YYYY")}</p>
+
         <div className="mt-4 flex space-x-2">
           <Link
             to={`/task/${task._id}`}
@@ -17,8 +19,8 @@ const TaskCard = ({task}) => {
             Update
           </Link>
           <button
-           
-            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+           onClick={()=>onDelete(task._id)}
+            className=" btn bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
           >
             Delete
           </button>
