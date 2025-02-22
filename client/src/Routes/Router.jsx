@@ -6,14 +6,19 @@ import AddTask from "../Pages/AddTask";
 
 import Tasks from "../Pages/Tasks";
 import UpdatePage from "../Pages/updatePage";
+import Root from "../Layout/Root";
 
 const router=createBrowserRouter([
     {
         path:'/',
-        element:<PrivateRoute><Home/></PrivateRoute>,
+        element:<PrivateRoute><Root/></PrivateRoute>,
         children:[
             {
                 path:'/',
+                element:<PrivateRoute><Home/></PrivateRoute>
+            },
+            {
+                path:'/addTask',
                 element:<PrivateRoute><AddTask/></PrivateRoute>
             },
             {
